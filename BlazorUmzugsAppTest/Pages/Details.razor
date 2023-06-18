@@ -4,10 +4,14 @@
 
 <h3>Details Angebot-Nr. @_angebot.AngebotId</h3>
 
+@*Felder für Erstelldatum und Gesamtpreis des Angebots*@
+
 <div class="d-flex justify-space-between">
     <MudTextField Margin="Margin.Dense" Class="col-1 mb-2" @bind-Value="_angebot.Belegdatum" Label="Erstellt am" Variant="Variant.Outlined"></MudTextField>
     <MudField Margin="Margin.Dense" Class="col-1 mb-2" T="string" ReadOnly="true" Label="Gesamtpreis" Variant="Variant.Outlined">@_angebot.GesamtPreis €</MudField>
 </div>
+
+ @*Formlar zur Eibgabe/ Ansicht der ursprünglichen Adresse*@
 
 <div class="row">
     <div class="d-inline-flex-grow-1 pa-4 col-6">
@@ -25,6 +29,8 @@
         </MudCard>
     </div>
 
+ @*Formlar zur Eibgabe/ Ansicht der neuen Adresse*@
+
     <div class="d-inline-flex-grow-1 pa-4 col-6">
         <MudCard Outlined="true" Class="pa-3">
             <MudCardHeader>
@@ -40,6 +46,8 @@
         </MudCard>
     </div>
 </div>
+
+@*Übersicht Räume*@
 
 <div class="row">
     <div class="d-inline-flex-grow-1 pa-4 col-6">
@@ -70,7 +78,7 @@
         <MudButton Class="btn-info" @onclick="Speichern">Angebot speichern</MudButton>
     </div>
 
-
+   @* Details/ Bearbeiten aktueller Raum*@
 
     @if (_aktuellerRaum != null)
     {
@@ -114,6 +122,8 @@
     private bool _istNeu;
 
     Raum _aktuellerRaum;
+
+    //Methode beim Erstellen der Seite: Neuer oder bestimmter Auftrag
 
     protected override void OnInitialized()
     {
