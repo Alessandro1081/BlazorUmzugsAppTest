@@ -1,0 +1,40 @@
+﻿@page "/"
+@inject NavigationManager navManager
+
+<h3>Angebotsübersicht</h3>
+
+@if (Datenbank.Angebote.Count > 0)
+{
+    <MudTable Items="@Datenbank.Angebote" OnRowClick="RowClickEvent" T="Angebot" Hover="true" Dense="true" Striped="true" Outlined="true">
+        <HeaderContent>
+            <MudTh>Id</MudTh>
+            <MudTh>Von Adresse</MudTh>
+            <MudTh>Nach Adresse</MudTh>
+            <MudTh>Gesamtpreis</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Id">@context.AngebotId</MudTd>
+            <MudTd DataLabel="Von Adresse">@context.VonAdresse.Vorname @context.VonAdresse.Nachname,
+            @context.VonAdresse.Strasse, @context.VonAdresse.Plz @context.VonAdresse.Ort</MudTd>
+            <MudTd DataLabel="Nach Adresse">@context.NachAdresse.Vorname @context.VonAdresse.Nachname,
+                @context.NachAdresse.Strasse, @context.NachAdresse.Plz @context.NachAdresse.Ort
+            </MudTd>
+            <MudTd DataLabel="Gesamtpreis">@context.GesamtPreis</MudTd>
+        </RowTemplate>
+    </MudTable>
+}
+<MudButton Class="btn-info mt-2" @onclick="@AngebotAnlegen">Angebot erstellen</MudButton>
+
+@code {
+    public void RowClickEvent(TableRowClickEventArgs<Angebot> e)
+    {
+        navManager.NavigateTo($"/angebote/{e.Item.AngebotId}");
+    }
+
+    public void AngebotAnlegen()
+    {
+        navManager.NavigateTo($"/angebote/neu");
+    }
+}
+
+           

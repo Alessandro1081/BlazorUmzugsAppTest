@@ -1,0 +1,158 @@
+﻿@page "/angebote/neu"
+@page "/angebote/{AngebotId:int}"
+
+
+<h3>Details Angebot-Nr. @_angebot.AngebotId</h3>
+
+<div class="d-flex justify-space-between">
+    <MudTextField Margin="Margin.Dense" Class="col-1 mb-2" @bind-Value="_angebot.Belegdatum" Label="Erstellt am" Variant="Variant.Outlined"></MudTextField>
+    <MudField Margin="Margin.Dense" Class="col-1 mb-2" T="string" ReadOnly="true" Label="Gesamtpreis" Variant="Variant.Outlined">@_angebot.GesamtPreis €</MudField>
+</div>
+
+<div class="row">
+    <div class="d-inline-flex-grow-1 pa-4 col-6">
+        <MudCard Outlined="true" Class="pa-3">
+            <MudCardHeader>
+                <MudText>Von Adresse</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.VonAdresse.Vorname" Label="Vorname" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.VonAdresse.Nachname" Label="Nachname" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.VonAdresse.Strasse" Label="Strasse" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.VonAdresse.Plz" Label="Plz" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.VonAdresse.Ort" Label="Ort" Variant="Variant.Outlined"></MudTextField>
+            </MudCardContent>
+        </MudCard>
+    </div>
+
+    <div class="d-inline-flex-grow-1 pa-4 col-6">
+        <MudCard Outlined="true" Class="pa-3">
+            <MudCardHeader>
+                <MudText>Zu Adresse</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.NachAdresse.Vorname" Label="Vorname" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.NachAdresse.Nachname" Label="Nachname" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.NachAdresse.Strasse" Label="Strasse" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.NachAdresse.Plz" Label="Plz" Variant="Variant.Outlined"></MudTextField>
+                <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_angebot.NachAdresse.Ort" Label="Ort" Variant="Variant.Outlined"></MudTextField>
+            </MudCardContent>
+        </MudCard>
+    </div>
+</div>
+
+<div class="row">
+    <div class="d-inline-flex-grow-1 pa-4 col-6">
+        <MudCard Outlined="true">
+            <MudCardHeader>
+                <MudText>Übersicht Räume</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+                <div class="d-flex justify-space-between">
+                    <MudTextField Margin="Margin.Dense" Class="mb-2 col-6" @bind-Value="_raumEingabe" Label="NeuerRaum" Variant="Variant.Outlined"></MudTextField>
+                    <MudButton Class="btn-info mb-2" @onclick="RaumHinzufuegen">Raum Hinzufügen</MudButton>
+                </div>
+
+                @foreach (var raum in _angebot.Raeume)
+                {
+                    <div class="d-flex justify-space-between">
+                        <MudTextField Variant="Variant.Outlined" Margin="Margin.Dense" Class="col-6" @onclick="()=>{_aktuellerRaum = raum;}" @bind-Value="raum.Bezeichnung"
+                                  T="string">@raum.Bezeichnung"</MudTextField>
+                        <MudField Margin="Margin.Dense" Class="col-2 mb-2" T="string" ReadOnly="true" Label="Raumpreis" Variant="Variant.Outlined">@raum.RaumPreis €</MudField>
+                        <MudButton Class="btn-info mb-2" @onclick="()=>{_aktuellerRaum = raum;}">Raum auswählen</MudButton>
+                    </div>
+                }
+            </MudCardContent>
+        </MudCard>
+
+        <h3>Gesamtpreis: @_angebot.GesamtPreis €</h3>
+
+        <MudButton Class="btn-info" @onclick="Speichern">Angebot speichern</MudButton>
+    </div>
+
+
+
+    @if (_aktuellerRaum != null)
+    {
+        <div class="d-inline-flex-grow-1 pa-4 col-6">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <MudText>Übersicht Positionen</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Margin="Margin.Dense" Variant="Variant.Outlined" Class="mb-2" @bind-Value="_aktuellerRaum.Bezeichnung">@_aktuellerRaum.Bezeichnung</MudTextField>
+                    <MudTextField Margin="Margin.Dense" Class="mb-2" @bind-Value="_positionEingabe" Label="Neue Position" Variant="Variant.Outlined"></MudTextField>
+                    <MudButton Class="btn-info mb-2" OnClick="PosHinzufuegen">Position hinzufügen</MudButton>
+
+
+                    @foreach (var pos in _aktuellerRaum.Positionen)
+                    {
+                        <div class="d-flex justify-space-between">
+                            <MudTextField Margin="Margin.Dense" Class="col-4" @bind-Value="pos.Bezeichnung" Label="Bezeichnung" Variant="Variant.Outlined"></MudTextField>
+                            <MudTextField Margin="Margin.Dense" Class="col-4" @bind-Value="pos.Preis" Label="Preis">@pos.Preis</MudTextField>
+                        </div>
+                        <div class="d-flex pa-4 justify-space-around flex-grow-5 gap-4">
+                            <MudCheckBox @bind-Checked="pos.MitAbbau">Mit Abbau</MudCheckBox>
+                            <MudCheckBox @bind-Checked="pos.MitAufbau">Mit Aufbau</MudCheckBox>
+                            <MudCheckBox @bind-Checked="pos.MitTransport">Mit Transport</MudCheckBox>
+                        </div>
+                    }
+                </MudCardContent>
+            </MudCard>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int? AngebotId { get; set; }
+
+    Angebot _angebot;
+
+    string _raumEingabe = "";
+    string _positionEingabe = "";
+    private bool _istNeu;
+
+    Raum _aktuellerRaum;
+
+    protected override void OnInitialized()
+    {
+        if (AngebotId != null)
+        {
+            _istNeu = false;
+            _angebot = Datenbank.Angebote.FirstOrDefault(x => x.AngebotId == AngebotId);
+        }
+        else
+        {
+            _istNeu = true;
+            _angebot = new();
+            _angebot.Belegdatum = DateTime.Today;
+        }
+    }
+
+    private void RaumHinzufuegen()
+    {
+        Raum raum = new();
+        raum.Bezeichnung = _raumEingabe;
+        _angebot.Raeume.Add(raum);
+        _raumEingabe = "";
+        _aktuellerRaum = raum;
+    }
+
+    private void PosHinzufuegen()
+    {
+        BlazorUmzugsAppTest.Data.Position position = new();
+        position.Bezeichnung = _positionEingabe;
+        _aktuellerRaum.Positionen.Add(position);
+        _positionEingabe = "";
+    }
+
+    private void Speichern()
+    {
+        if (_istNeu)
+        {
+            _angebot.AngebotId = Datenbank.Angebote.Count + 1;
+            Datenbank.Angebote.Add(_angebot);
+        }
+    }
+}
