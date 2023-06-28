@@ -11,7 +11,7 @@
     <MudField Margin="Margin.Dense" Class="col-1 mb-2" T="string" ReadOnly="true" Label="Gesamtpreis" Variant="Variant.Outlined">@_angebot.GesamtPreis €</MudField>
 </div>
 
- @*Formlar zur Eibgabe/ Ansicht der ursprünglichen Adresse*@
+ @*Formular zur Eibgabe/ Ansicht der ursprünglichen Adresse*@
 
 <div class="row">
     <div class="d-inline-flex-grow-1 pa-4 col-6">
@@ -140,6 +140,8 @@
         }
     }
 
+    // Methode zum Hinzufügen eines Raums
+
     private void RaumHinzufuegen()
     {
         Raum raum = new();
@@ -149,6 +151,8 @@
         _aktuellerRaum = raum;
     }
 
+    // Methode zum Hinzufügen einer Position
+
     private void PosHinzufuegen()
     {
         BlazorUmzugsAppTest.Data.Position position = new();
@@ -156,6 +160,8 @@
         _aktuellerRaum.Positionen.Add(position);
         _positionEingabe = "";
     }
+
+    // Methode zum Speichern eines Angebots
 
     private void Speichern()
     {
