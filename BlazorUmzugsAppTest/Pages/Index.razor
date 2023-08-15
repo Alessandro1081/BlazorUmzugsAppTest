@@ -9,15 +9,15 @@
         <HeaderContent>
             <MudTh>Id</MudTh>
             <MudTh>Von Adresse</MudTh>
-            <MudTh>Nach Adresse</MudTh>
+            <MudTh>Zu Adresse</MudTh>
             <MudTh>Gesamtpreis</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd DataLabel="Id">@context.AngebotId</MudTd>
             <MudTd DataLabel="Von Adresse">@context.VonAdresse.Vorname @context.VonAdresse.Nachname,
             @context.VonAdresse.Strasse, @context.VonAdresse.Plz @context.VonAdresse.Ort</MudTd>
-            <MudTd DataLabel="Nach Adresse">@context.NachAdresse.Vorname @context.VonAdresse.Nachname,
-                @context.NachAdresse.Strasse, @context.NachAdresse.Plz @context.NachAdresse.Ort
+            <MudTd DataLabel="Nach Adresse">@context.ZuAdresse.Vorname @context.ZuAdresse.Nachname,
+                @context.ZuAdresse.Strasse, @context.ZuAdresse.Plz @context.ZuAdresse.Ort
             </MudTd>
             <MudTd DataLabel="Gesamtpreis">@context.GesamtPreis</MudTd>
         </RowTemplate>

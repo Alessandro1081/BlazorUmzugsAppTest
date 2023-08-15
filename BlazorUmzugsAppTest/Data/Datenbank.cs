@@ -16,7 +16,7 @@
                     Plz = "46049",
                     Ort = "Oberhausen"
                 },
-                NachAdresse = new Adresse
+                ZuAdresse = new Adresse
                 {
                     Vorname = "Hans",
                     Nachname = "Topf",
